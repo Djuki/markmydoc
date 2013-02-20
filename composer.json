@@ -1,0 +1,23 @@
+{
+    "name":        "djuki/markmydoc",
+    "type":        "application",
+    "description": "Framework for presenting markdown files. It can be used for documentation",
+    "keywords":    ["markdown", "framework"],
+    "homepage":    "",
+    "license":     "MIT",
+    "authors": [
+        {
+            "name": "Ivan Djurdjevac",
+            "homepage": "http://ivandjurdjevac.me"
+        }
+    ],
+
+    "require": {
+        "php":                      ">=5.3.3",
+        "dflydev/markdown":         "1.0.*@dev"
+    },
+    "autoload": {
+        "classmap": ["Core"]
+    }
+
+}
