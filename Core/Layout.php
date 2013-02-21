@@ -18,7 +18,16 @@ class Layout
      * Theme name
      * @var string
      */
-    protected $theme = 'default';
+    protected $theme;
+
+    /**
+     * Set active theme
+     * @param $theme
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+    }
 
     /**
      * Set variable for View

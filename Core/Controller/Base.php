@@ -25,7 +25,8 @@ class Controller_Base
     public function before()
     {
         $this->layout = new Layout();
-        Assets::setAssetsPath(\Config::get('config::app.base_url').'themes/'.$this->layout->getTheme().'/');
+        $this->layout->setTheme(Config::get('config::app.theme'));
+        Assets::setAssetsPath(Config::get('config::app.base_url').'themes/'.$this->layout->getTheme().'/');
 
     }
 
