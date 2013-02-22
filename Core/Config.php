@@ -10,43 +10,61 @@ class Config
 {
     /**
      * Get config file and item inside config file
-     * @param $item
+     * @param $configRequest
      *
      * @return mixed
      */
-    static public function get($item)
+    static public function get($configRequest)
     {
-        if (empty($item))
+        if (empty($configRequest))
         {
             return false;
         }
-
-        if (stristr($item, '::'))
+        if (stristr($configRequest, '::'))
         {
-            $item = explode('::', $item);
-            $fileName = array_shift($item);
-            $configArray = include (ROOT_PATH.'config/'.$fileName.'.php');
-            $item = array_shift($item);
-            $items = explode('.', $item);
-            $wantedConfig = false;
-
-            foreach ($items as $item)
-            {
-                if (isset($configArray[$item]))
-                {
-                    $wantedConfig = $configArray[$item];
-                    $configArray = $configArray[$item];
-                }
-                else break;
-            }
-            return $wantedConfig;
-
+            return self::getConfigItem($configRequest);
         }
 
-        if (file_exists(ROOT_PATH.'config/'.$item.'.php'))
+        if (file_exists(ROOT_PATH.'config/'.$configRequest.'.php'))
         {
-            return include (ROOT_PATH.'config/'.$item.'.php');
+            return include (ROOT_PATH.'config/'.$configRequest.'.php');
         }
+
         return false;
+    }
+
+    /**
+     *
+     * Returns config item based on $configRequest
+     *
+     * @param $configRequest
+     *
+     * @return array
+     */
+    private static function getConfigItem($configRequest)
+    {
+        $configRequestItems  = explode('::', $configRequest);
+        // first item is config file name
+        $configFileName       = array_shift($configRequestItems);
+
+        // contains complete config array
+        $requestedConfig    = include (ROOT_PATH.'config/'.$configFileName.'.php');
+
+        // contains requested indexes separated by dot
+        $configRequestIndexes = array_shift($configRequestItems);
+
+        $configItems = explode('.', $configRequestIndexes);
+
+        foreach ($configItems as $configItem)
+        {
+            if (! isset($requestedConfig[$configItem]))
+            {
+                break;
+            }
+            // scope of requested config is reduced by current index
+            $requestedConfig  = $requestedConfig[$configItem];
+        }
+
+        return $requestedConfig;
     }
 }
