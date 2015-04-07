@@ -3,7 +3,7 @@
     "type":        "application",
     "description": "Framework for presenting markdown files. It can be used for documentation",
     "keywords":    ["markdown", "framework"],
-    "homepage":    "",
+    "homepage":    "http://www.ivandjurdjevac.me",
     "license":     "MIT",
     "authors": [
         {
@@ -11,13 +11,11 @@
             "homepage": "http://ivandjurdjevac.me"
         }
     ],
-
     "require": {
-        "php":                      ">=5.3.3",
-        "dflydev/markdown":         "1.0.*@dev"
+      "php": ">=5.3.3",
+      "michelf/php-markdown": "1.5.0"
     },
     "autoload": {
         "classmap": ["Core"]
     }
-
 }

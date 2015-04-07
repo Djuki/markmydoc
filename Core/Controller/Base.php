@@ -6,7 +6,7 @@
  *
  */
 
-use dflydev\markdown\MarkdownParser;
+use \Michelf\Markdown;
 
 
 class Controller_Base
@@ -39,10 +39,10 @@ class Controller_Base
         // Set sidebar menu. Items read from config file
         $this->layout->set('menu', Menu::arrayToList(Config::get('sidebar::menu')));
 
-        $markdownParser = new MarkdownParser();
+        $markdownParser = new Markdown();
         $docFile = file_exists(DOC_PATH.$documentName.'.md') ? DOC_PATH.$documentName.'.md' : DOC_PATH.'404.md';
 
-        $html = $markdownParser->transformMarkdown(file_get_contents($docFile));
+        $html = $markdownParser->transform(file_get_contents($docFile));
         $this->layout->set('content', $html);
     }
 
